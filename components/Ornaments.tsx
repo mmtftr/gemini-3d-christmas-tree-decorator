@@ -293,109 +293,10 @@ const Gift3Ornament: React.FC<{ color: string; opacity?: number }> = ({ color, o
   );
 };
 
-const BallOrnament: React.FC<{ color: string; opacity?: number }> = ({ color, opacity = 1 }) => {
-  const { scene } = useGLTF('/models/ball.glb');
-  const clonedScene = useMemo(() => {
-    const clone = scene.clone(true);
-    clone.traverse((child) => {
-      if ((child as THREE.Mesh).isMesh) {
-        const mesh = child as THREE.Mesh;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        const material = new THREE.MeshStandardMaterial({
-          color: color,
-          emissive: color,
-          emissiveIntensity: 0.3,
-          metalness: 0.8,
-          roughness: 0.2,
-          transparent: opacity < 1,
-          opacity: opacity,
-        });
-        mesh.material = material;
-      }
-    });
-    return clone;
-  }, [scene, color, opacity]);
-
-  return (
-    <group scale={0.3}>
-      <primitive object={clonedScene} />
-      <pointLight color={color} intensity={0.4} distance={0.8} />
-    </group>
-  );
-};
-
-const BellOrnament: React.FC<{ color: string; opacity?: number }> = ({ color, opacity = 1 }) => {
-  const { scene } = useGLTF('/models/bell.glb');
-  const clonedScene = useMemo(() => {
-    const clone = scene.clone(true);
-    clone.traverse((child) => {
-      if ((child as THREE.Mesh).isMesh) {
-        const mesh = child as THREE.Mesh;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        const material = new THREE.MeshStandardMaterial({
-          color: color,
-          emissive: color,
-          emissiveIntensity: 0.25,
-          metalness: 0.9,
-          roughness: 0.1,
-          transparent: opacity < 1,
-          opacity: opacity,
-        });
-        mesh.material = material;
-      }
-    });
-    return clone;
-  }, [scene, color, opacity]);
-
-  return (
-    <group scale={1.35}>
-      <primitive object={clonedScene} />
-      <pointLight color={color} intensity={0.5} distance={1} />
-    </group>
-  );
-};
-
-const RedballOrnament: React.FC<{ color: string; opacity?: number }> = ({ color, opacity = 1 }) => {
-  const { scene } = useGLTF('/models/redball.glb');
-  const clonedScene = useMemo(() => {
-    const clone = scene.clone(true);
-    clone.traverse((child) => {
-      if ((child as THREE.Mesh).isMesh) {
-        const mesh = child as THREE.Mesh;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        const material = new THREE.MeshStandardMaterial({
-          color: color,
-          emissive: color,
-          emissiveIntensity: 0.3,
-          metalness: 0.8,
-          roughness: 0.2,
-          transparent: opacity < 1,
-          opacity: opacity,
-        });
-        mesh.material = material;
-      }
-    });
-    return clone;
-  }, [scene, color, opacity]);
-
-  return (
-    <group scale={0.08} rotation={[0, 0, Math.PI / 2]}>
-      <primitive object={clonedScene} position={[-7.67, -0.4, 0]} />
-      <pointLight color={color} intensity={0.4} distance={0.8} />
-    </group>
-  );
-};
-
 // Preload GLB models
 useGLTF.preload('/models/gift1.glb');
 useGLTF.preload('/models/gift2.glb');
 useGLTF.preload('/models/gift3.glb');
-useGLTF.preload('/models/ball.glb');
-useGLTF.preload('/models/bell.glb');
-useGLTF.preload('/models/redball.glb');
 
 // ============================================
 // RENDER ORNAMENT BY TYPE
@@ -421,12 +322,6 @@ const renderOrnamentByType = (type: OrnamentType, color: string, opacity: number
       return <Gift2Ornament color={color} opacity={opacity} />;
     case 'gift3':
       return <Gift3Ornament color={color} opacity={opacity} />;
-    case 'ball':
-      return <BallOrnament color={color} opacity={opacity} />;
-    case 'bell':
-      return <BellOrnament color={color} opacity={opacity} />;
-    case 'redball':
-      return <RedballOrnament color={color} opacity={opacity} />;
     default:
       return <SphereOrnament color={color} opacity={opacity} />;
   }

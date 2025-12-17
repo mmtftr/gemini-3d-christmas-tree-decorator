@@ -13,9 +13,6 @@ export const ORNAMENT_TYPES = [
   'gift1',
   'gift2',
   'gift3',
-  'ball',
-  'bell',
-  'redball',
 ] as const;
 
 export type OrnamentType = typeof ORNAMENT_TYPES[number];
@@ -31,9 +28,9 @@ export const FUTURE_ORNAMENT_TYPES = [
 ] as const;
 
 export const ORNAMENT_CATEGORIES = {
-  classic: ['sphere', 'diamond', 'ball', 'redball'],
+  classic: ['sphere', 'diamond'],
   shapes: ['cube', 'heart'],
-  festive: ['giftBox', 'snowflake', 'bell'],
+  festive: ['giftBox', 'snowflake'],
   gifts: ['gift1', 'gift2', 'gift3'],
 } as const;
 
