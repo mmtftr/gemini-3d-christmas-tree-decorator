@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Christmas Tree Decorator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/night.css">
+    <style>
+        :root {
+            --r-background-color: #0a1628;
+            --r-main-color: #e8f5e9;
+            --r-heading-color: #81c784;
+            --r-main-font-size: 28px;
+            --r-heading1-size: 1.8em;
+            --r-heading2-size: 1.4em;
+            --r-heading3-size: 1.1em;
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+        }
+        .reveal p, .reveal li {
+            font-size: 0.85em;
+        }
+        .reveal .slides section {
+            text-align: left;
+        }
+        .reveal .slides section.center-slide {
+            text-align: center;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 0.7em;
+        }
+        .feature-item {
+            background: rgba(129, 199, 132, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #81c784;
+        }
+        .screenshot {
+            max-height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .tech-badge {
+            display: inline-block;
+            background: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 4px;
+            font-size: 0.55em;
+        }
+        .emoji {
+            font-size: 1.2em;
+        }
+        ul {
+            list-style: none;
+        }
+        ul li::before {
+            content: "✦ ";
+            color: #81c784;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section class="center-slide" data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h1 style="font-size: 1.8em;">3D Christmas Tree Decorator</h1>
+                <p style="font-size: 0.9em; color: #a5d6a7;">Create, decorate, and share your perfect Christmas tree</p>
+                <p style="margin-top: 40px;">
+                    <span class="tech-badge">Three.js</span>
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">Convex</span>
+                    <span class="tech-badge">Lyria AI</span>
+                    <span class="tech-badge">Vibeflow</span>
+                </p>
+            </section>
+
+            <!-- Overview Slide -->
+            <section data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>What is it?</h2>
+                <p>An interactive 3D web app that lets you:</p>
+                <ul>
+                    <li>Decorate a beautiful 3D Christmas tree</li>
+                    <li>Generate live Christmas music with AI</li>
+                    <li>Choose from multiple festive themes</li>
+                    <li>Share your creation with friends</li>
+                    <li>Collaborate in real-time via Convex sync</li>
+                </ul>
+            </section>
+
+            <!-- Screenshot 1 - Main Interface -->
+            <section class="center-slide" data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>Beautiful 3D Interface</h2>
+                <img src="screenshots/Screenshot 2025-12-17 at 20.21.59.png" class="screenshot" alt="Main Interface">
+                <p style="font-size: 0.7em; color: #a5d6a7;">Themes panel with multiple festive options</p>
+            </section>
+
+            <!-- Features Grid -->
+            <section data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>Key Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>Themes</h3>
+                        <p>Winter Wonderland, Classic Christmas, Midnight Magic, Cozy Fireside</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Customize</h3>
+                        <p>Tree color, snow intensity, height, and random shape generation</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Ornaments</h3>
+                        <p>Classic, Shapes, and Festive categories with multiple colors</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Toppers</h3>
+                        <p>Star and Snowflake options to crown your tree</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screenshot 2 - Welcome -->
+            <section class="center-slide" data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>Easy to Get Started</h2>
+                <img src="screenshots/Screenshot 2025-12-17 at 20.25.03.png" class="screenshot" alt="Welcome Screen">
+                <p style="font-size: 0.7em; color: #a5d6a7;">Guided onboarding with customization options</p>
+            </section>
+
+            <!-- AI Music -->
+            <section data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>AI-Generated Christmas Music</h2>
+                <p>Powered by <strong style="color: #81c784;">Lyria AI</strong></p>
+                <ul>
+                    <li>Jingle Bells</li>
+                    <li>Orchestral</li>
+                    <li>Cozy Fireplace</li>
+                    <li>Choir</li>
+                    <li>Holiday Jazz</li>
+                    <li>Magical</li>
+                </ul>
+                <p style="margin-top: 20px; font-size: 0.8em;">Mix and match styles with adjustable sliders for the perfect holiday ambiance</p>
+            </section>
+
+            <!-- Screenshot 3 - Decorate -->
+            <section class="center-slide" data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>Decorate Mode</h2>
+                <img src="screenshots/Screenshot 2025-12-17 at 20.25.29.png" class="screenshot" alt="Decorate Mode">
+                <p style="font-size: 0.7em; color: #a5d6a7;">Add ornaments with click-to-place interaction</p>
+            </section>
+
+            <!-- Screenshot 4 - Edit -->
+            <section class="center-slide" data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>Edit Mode</h2>
+                <img src="screenshots/Screenshot 2025-12-17 at 20.25.38.png" class="screenshot" alt="Edit Mode">
+                <p style="font-size: 0.7em; color: #a5d6a7;">Move and rotate ornaments to perfect placement</p>
+            </section>
+
+            <!-- Screenshot 5 - Toppers -->
+            <section class="center-slide" data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>Tree Toppers</h2>
+                <img src="screenshots/Screenshot 2025-12-17 at 20.25.53.png" class="screenshot" alt="Toppers">
+                <p style="font-size: 0.7em; color: #a5d6a7;">Crown your tree with a star or snowflake</p>
+            </section>
+
+            <!-- Real-time Sync -->
+            <section data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>Real-time Collaboration</h2>
+                <p>Powered by <strong style="color: #81c784;">Convex</strong></p>
+                <ul>
+                    <li>Share your tree with a unique link</li>
+                    <li>Decorations sync in real-time</li>
+                    <li>Solo Mode for private decorating</li>
+                    <li>See others' ornaments appear instantly</li>
+                </ul>
+            </section>
+
+            <!-- Tech Stack -->
+            <section data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h2>Tech Stack</h2>
+                <ul>
+                    <li><strong>Three.js / React Three Fiber</strong> - 3D rendering</li>
+                    <li><strong>React</strong> - UI framework</li>
+                    <li><strong>Convex</strong> - Real-time backend sync</li>
+                    <li><strong>Lyria AI</strong> - Music generation</li>
+                    <li><strong>Vibeflow</strong> - AI-assisted development</li>
+                    <li><strong>Next.js</strong> - Framework</li>
+                </ul>
+            </section>
+
+            <!-- Thank You -->
+            <section class="center-slide" data-background-gradient="radial-gradient(circle, #1a3a2a 0%, #0a1628 100%)">
+                <h1>Happy Holidays!</h1>
+                <p style="font-size: 1.1em; margin: 40px 0;">Start decorating your tree today</p>
+                <p style="color: #81c784;">Built with love for the holiday season</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            backgroundTransition: 'fade'
+        });
+    </script>
+</body>
+</html>

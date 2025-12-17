@@ -1,0 +1,5 @@
+{
+  "name": "Gemini 3D Christmas Tree Decorator",
+  "description": "An interactive procedural 3D Christmas tree decorator featuring drag-and-drop ornaments, custom shaders, and Gemini-powered theme generation.",
+  "requestFramePermissions": []
+}
