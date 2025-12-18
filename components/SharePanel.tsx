@@ -9,31 +9,43 @@ import {
   Save,
   FolderOpen,
   X,
+  Cloud,
 } from 'lucide-react';
 import { TreeExportData, importTreeFromFile } from '../data/treeExport';
 
 interface SharePanelProps {
   onCopyShareURL: () => Promise<boolean>;
+  onCopyCloudShareURL: () => Promise<boolean>;
   onDownloadJSON: () => void;
   onImportFromCode: (code: string) => Promise<boolean>;
   onImportFromData: (data: TreeExportData) => Promise<void>;
   onSaveToStorage: () => Promise<string>;
+  onSaveToCloud: () => Promise<string>;
   getShareURL: () => string;
+  getCloudShareURL: () => string;
   ornamentCount: number;
+  cloudId?: string;
 }
 
 export const SharePanel: React.FC<SharePanelProps> = ({
   onCopyShareURL,
+  onCopyCloudShareURL,
   onDownloadJSON,
   onImportFromCode,
   onImportFromData,
   onSaveToStorage,
+  onSaveToCloud,
   getShareURL,
+  getCloudShareURL,
   ornamentCount,
+  cloudId,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [cloudCopied, setCloudCopied] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [cloudSaved, setCloudSaved] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [importCode, setImportCode] = useState('');
   const [showImport, setShowImport] = useState(false);
   const [importError, setImportError] = useState('');
@@ -47,10 +59,29 @@ export const SharePanel: React.FC<SharePanelProps> = ({
     }
   };
 
+  const handleCopyCloudURL = async () => {
+    const success = await onCopyCloudShareURL();
+    if (success) {
+      setCloudCopied(true);
+      setTimeout(() => setCloudCopied(false), 2000);
+    }
+  };
+
   const handleSave = async () => {
     await onSaveToStorage();
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
+  };
+
+  const handleCloudSave = async () => {
+    setIsSaving(true);
+    try {
+      await onSaveToCloud();
+      setCloudSaved(true);
+      setTimeout(() => setCloudSaved(false), 2000);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleImportCode = async () => {
@@ -95,7 +126,7 @@ export const SharePanel: React.FC<SharePanelProps> = ({
   }
 
   return (
-    <div className="fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl p-4 w-72">
+    <div className="fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl p-4 w-72 max-h-[90vh] overflow-y-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-white font-semibold flex items-center gap-2">
@@ -117,7 +148,30 @@ export const SharePanel: React.FC<SharePanelProps> = ({
 
       {/* Share Actions */}
       <div className="space-y-2">
-        {/* Copy Share Link */}
+        {/* Cloud Share (New) */}
+        <button
+          onClick={cloudId ? handleCopyCloudURL : handleCloudSave}
+          disabled={isSaving}
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 transition-colors text-left"
+        >
+          {isSaving ? (
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-400 border-t-transparent" />
+          ) : cloudCopied || cloudSaved ? (
+            <Check size={18} className="text-green-400" />
+          ) : (
+            <Cloud size={18} className="text-blue-400" />
+          )}
+          <div>
+            <div className="text-white text-sm font-medium">
+              {cloudId ? (cloudCopied ? 'URL Copied!' : 'Copy Cloud Link') : (isSaving ? 'Saving...' : 'Save to Cloud')}
+            </div>
+            <div className="text-gray-400 text-xs">
+              {cloudId ? 'Shareable permanent link' : 'Generate shareable link'}
+            </div>
+          </div>
+        </button>
+
+        {/* Copy Share Link (Classic) */}
         <button
           onClick={handleCopyURL}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-left"
@@ -125,13 +179,13 @@ export const SharePanel: React.FC<SharePanelProps> = ({
           {copied ? (
             <Check size={18} className="text-green-400" />
           ) : (
-            <Link size={18} className="text-blue-400" />
+            <Link size={18} className="text-purple-400" />
           )}
           <div>
             <div className="text-white text-sm font-medium">
-              {copied ? 'Copied!' : 'Copy Share Link'}
+              {copied ? 'Copied!' : 'Copy Data Link'}
             </div>
-            <div className="text-gray-400 text-xs">Share your tree via URL</div>
+            <div className="text-gray-400 text-xs">Contains all tree data in URL</div>
           </div>
         </button>
 
@@ -140,7 +194,7 @@ export const SharePanel: React.FC<SharePanelProps> = ({
           onClick={onDownloadJSON}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-left"
         >
-          <Download size={18} className="text-purple-400" />
+          <Download size={18} className="text-orange-400" />
           <div>
             <div className="text-white text-sm font-medium">Download File</div>
             <div className="text-gray-400 text-xs">Save as JSON file</div>
@@ -238,9 +292,9 @@ export const SharePanel: React.FC<SharePanelProps> = ({
 
       {/* Share URL Preview */}
       <div className="mt-4 p-3 rounded-lg bg-white/5">
-        <div className="text-xs text-gray-400 mb-1">Share URL:</div>
+        <div className="text-xs text-gray-400 mb-1">Preview URL:</div>
         <div className="text-xs text-gray-500 truncate font-mono">
-          {getShareURL().substring(0, 50)}...
+          {cloudId ? getCloudShareURL() : getShareURL().substring(0, 50) + '...'}
         </div>
       </div>
     </div>

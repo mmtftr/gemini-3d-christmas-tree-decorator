@@ -1,7 +1,16 @@
 import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, ThreeElement } from '@react-three/fiber';
 import * as THREE from 'three';
 import { shaderMaterial } from '@react-three/drei';
+
+// Extend for JSX
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      skyShaderMaterial: ThreeElement<any>;
+    }
+  }
+}
 
 // ============================================
 // SKY SHADER MATERIAL
@@ -294,18 +303,11 @@ const SkyShaderMaterial = shaderMaterial(
   `
 );
 
-// Extend for JSX
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      skyShaderMaterial: any;
-    }
-  }
-}
-
 // Register the material
 import { extend } from '@react-three/fiber';
 extend({ SkyShaderMaterial });
+
+const SKY_SHADER_MATERIAL = 'skyShaderMaterial' as any;
 
 // ============================================
 // SKY DOME COMPONENT
@@ -362,7 +364,7 @@ export const SkyShader: React.FC<SkyShaderProps> = ({
   return (
     <mesh scale={[-1, 1, 1]}>
       <sphereGeometry args={[100, 64, 64]} />
-      <skyShaderMaterial
+      <SKY_SHADER_MATERIAL
         ref={materialRef}
         side={THREE.BackSide}
         uTopColor={colors.top}

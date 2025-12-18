@@ -81,7 +81,7 @@ export const PineTree: React.FC<PineTreeProps> = ({
   // Create a beautiful tiered pine tree
   const treeGeometry = useMemo(() => {
     const tiers = 5;
-    const elements: JSX.Element[] = [];
+    const elements: React.ReactNode[] = [];
 
     // Trunk
     elements.push(

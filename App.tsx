@@ -62,6 +62,27 @@ export default function App() {
   const [transformMode, setTransformMode] = useState<TransformMode>('translate');
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
 
+  // Load from URL (Share Code or Cloud ID)
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const treeCode = params.get('tree');
+
+    if (id) {
+      store.loadFromCloud(id);
+      // Clean up URL
+      const url = new URL(window.location.href);
+      url.searchParams.delete('id');
+      window.history.replaceState({}, '', url.toString());
+    } else if (treeCode) {
+      store.importFromCode(treeCode);
+      // Clean up URL
+      const url = new URL(window.location.href);
+      url.searchParams.delete('tree');
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, []);
+
   // E-commerce state
   const [selectedTreeProduct, setSelectedTreeProduct] = useState<TreeProduct>(TREE_PRODUCTS[1]); // Medium by default
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -464,12 +485,16 @@ export default function App() {
         {/* Share Panel */}
         <SharePanel
           onCopyShareURL={store.copyShareURL}
+          onCopyCloudShareURL={store.copyCloudShareURL}
           onDownloadJSON={store.downloadAsJSON}
           onImportFromCode={store.importFromCode}
           onImportFromData={store.importFromData}
           onSaveToStorage={store.saveToStorage}
+          onSaveToCloud={store.saveToCloud}
           getShareURL={store.getShareURL}
+          getCloudShareURL={store.getCloudShareURL}
           ornamentCount={store.ornaments.length}
+          cloudId={store.cloudId}
         />
 
         {/* Spacer */}

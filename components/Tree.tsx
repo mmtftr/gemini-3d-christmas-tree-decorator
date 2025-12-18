@@ -13,7 +13,7 @@ interface TreeProps {
 }
 
 export const Tree: React.FC<TreeProps> = ({ config, onPointerMove, onClick, onPointerOut, position }) => {
-  const shaderRef = useRef<THREE.Shader>(null);
+  const shaderRef = useRef<any>(null);
   
   // Update Uniforms
   useFrame((state) => {
@@ -33,7 +33,7 @@ export const Tree: React.FC<TreeProps> = ({ config, onPointerMove, onClick, onPo
     return geometry;
   }, [config.height, config.radius]);
 
-  const onBeforeCompile = useCallback((shader: THREE.Shader) => {
+  const onBeforeCompile = useCallback((shader: any) => {
     shaderRef.current = shader;
     
     shader.uniforms.uTime = { value: 0 };

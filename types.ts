@@ -13,6 +13,11 @@ export const ORNAMENT_TYPES = [
   'gift1',
   'gift2',
   'gift3',
+  'ball',
+  'bell',
+  'redball',
+  'ribbon',
+  'gingerbread',
 ] as const;
 
 export type OrnamentType = typeof ORNAMENT_TYPES[number];
@@ -21,16 +26,15 @@ export type OrnamentType = typeof ORNAMENT_TYPES[number];
 export const FUTURE_ORNAMENT_TYPES = [
   'star',
   'candyCane',
-  'bell',
   'icicle',
   'gingerbread',
   'ribbon',
 ] as const;
 
 export const ORNAMENT_CATEGORIES = {
-  classic: ['sphere', 'diamond'],
+  classic: ['sphere', 'diamond', 'ball', 'redball'],
   shapes: ['cube', 'heart'],
-  festive: ['giftBox', 'snowflake'],
+  festive: ['giftBox', 'snowflake', 'bell'],
   gifts: ['gift1', 'gift2', 'gift3'],
 } as const;
 
@@ -102,6 +106,8 @@ export interface User {
   avatarUrl?: string;
   createdAt: number;
   updatedAt: number;
+  tier: 'free' | 'basic' | 'premium' | 'unlimited';
+  quota: UserQuota;
 }
 
 /**
@@ -198,8 +204,8 @@ export const DEFAULT_QUOTAS: Record<User['tier'], Omit<UserQuota, 'usedOrnaments
     canUseAnimations: true,
   },
   unlimited: {
-    maxOrnaments: Infinity,
-    maxToppers: Infinity,
+    maxOrnaments: 1000,
+    maxToppers: 10,
     canUseSpecialOrnaments: true,
     canUseCustomColors: true,
     canUseAnimations: true,

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ConvexProvider } from './lib/convex';
+import { ConvexClientProvider } from './lib/convex';
 import { AuthProvider } from './hooks/useAuth';
 import App from './App';
 import { LoginPage, SignupPage } from './pages';
@@ -15,15 +15,15 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <ConvexProvider>
+      <ConvexClientProvider>
+        <AuthProvider>
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
           </Routes>
-        </ConvexProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </ConvexClientProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -79,6 +79,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         snowfall: generated.snowAmount > 0.3,
         snowfallIntensity: generated.snowAmount,
         starsVisible: true,
+        skyShader: SCENE_THEMES.winterNatural.skyShader,
         ornamentColors: generated.ornamentColors,
       };
 
